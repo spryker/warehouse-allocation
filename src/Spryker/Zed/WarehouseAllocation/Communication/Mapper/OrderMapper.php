@@ -36,12 +36,6 @@ class OrderMapper implements OrderMapperInterface
         return $orderTransfer;
     }
 
-    /**
-     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem $orderItemEntity
-     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
-     *
-     * @return \Generated\Shared\Transfer\ItemTransfer
-     */
     protected function mapOrderItemEntityToItemTransfer(SpySalesOrderItem $orderItemEntity, ItemTransfer $itemTransfer): ItemTransfer
     {
         return $itemTransfer->fromArray($orderItemEntity->toArray(), true);

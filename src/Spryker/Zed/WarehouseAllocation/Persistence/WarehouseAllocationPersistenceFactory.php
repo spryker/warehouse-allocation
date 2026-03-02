@@ -26,9 +26,6 @@ class WarehouseAllocationPersistenceFactory extends AbstractPersistenceFactory
         return SpyWarehouseAllocationQuery::create();
     }
 
-    /**
-     * @return \Spryker\Zed\WarehouseAllocation\Persistence\Propel\Mapper\WarehouseAllocationMapper
-     */
     public function createWarehouseAllocationMapper(): WarehouseAllocationMapper
     {
         return new WarehouseAllocationMapper();

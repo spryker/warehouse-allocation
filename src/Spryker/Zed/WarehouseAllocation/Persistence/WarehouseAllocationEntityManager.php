@@ -16,11 +16,6 @@ use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
  */
 class WarehouseAllocationEntityManager extends AbstractEntityManager implements WarehouseAllocationEntityManagerInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\WarehouseAllocationTransfer $warehouseAllocationTransfer
-     *
-     * @return \Generated\Shared\Transfer\WarehouseAllocationTransfer
-     */
     public function createWarehouseAllocation(
         WarehouseAllocationTransfer $warehouseAllocationTransfer
     ): WarehouseAllocationTransfer {

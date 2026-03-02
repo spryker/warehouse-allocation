@@ -48,11 +48,6 @@ class WarehouseAllocator implements WarehouseAllocatorInterface
         $this->salesOrderWarehouseAllocationPlugins = $salesOrderWarehouseAllocationPlugins;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer
-     */
     public function allocateWarehouses(OrderTransfer $orderTransfer): OrderTransfer
     {
         $orderTransfer = $this->executeSalesOrderWarehouseAllocationPlugins($orderTransfer);
@@ -69,11 +64,6 @@ class WarehouseAllocator implements WarehouseAllocatorInterface
         return $orderTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\WarehouseAllocationCollectionTransfer $warehouseAllocationCollectionTransfer
-     *
-     * @return \Generated\Shared\Transfer\WarehouseAllocationCollectionTransfer
-     */
     protected function executeCreateWarehouseAllocationCollectionTransaction(
         WarehouseAllocationCollectionTransfer $warehouseAllocationCollectionTransfer
     ): WarehouseAllocationCollectionTransfer {
@@ -91,21 +81,11 @@ class WarehouseAllocator implements WarehouseAllocatorInterface
         return $warehouseAllocationCollectionTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\WarehouseAllocationTransfer $warehouseAllocationTransfer
-     *
-     * @return bool
-     */
     protected function isWarehouseDefinedForWarehouseAllocation(WarehouseAllocationTransfer $warehouseAllocationTransfer): bool
     {
         return $warehouseAllocationTransfer->getWarehouse() && $warehouseAllocationTransfer->getWarehouseOrFail()->getIdStock();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     *
-     * @return \Generated\Shared\Transfer\OrderTransfer
-     */
     protected function executeSalesOrderWarehouseAllocationPlugins(OrderTransfer $orderTransfer): OrderTransfer
     {
         foreach ($this->salesOrderWarehouseAllocationPlugins as $salesOrderWarehouseAllocationPlugin) {

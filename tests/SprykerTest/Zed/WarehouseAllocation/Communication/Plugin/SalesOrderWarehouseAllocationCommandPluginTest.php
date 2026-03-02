@@ -32,9 +32,6 @@ class SalesOrderWarehouseAllocationCommandPluginTest extends Unit
      */
     protected WarehouseAllocationCommunicationTester $tester;
 
-    /**
-     * @return void
-     */
     public function testRunAssignsWarehouseIdWhenSalesOrderWarehouseAllocationPluginSetsWarehouseIdToItemWarehouseTransfer(): void
     {
         // Arrange

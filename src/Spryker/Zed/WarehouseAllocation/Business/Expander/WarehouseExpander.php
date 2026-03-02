@@ -19,9 +19,6 @@ class WarehouseExpander implements WarehouseExpanderInterface
      */
     protected WarehouseAllocationRepositoryInterface $warehouseAllocationRepository;
 
-    /**
-     * @param \Spryker\Zed\WarehouseAllocation\Persistence\WarehouseAllocationRepositoryInterface $warehouseAllocationRepository
-     */
     public function __construct(WarehouseAllocationRepositoryInterface $warehouseAllocationRepository)
     {
         $this->warehouseAllocationRepository = $warehouseAllocationRepository;

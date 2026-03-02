@@ -23,25 +23,16 @@ use Spryker\Zed\WarehouseAllocation\WarehouseAllocationDependencyProvider;
  */
 class WarehouseAllocationBusinessFactory extends AbstractBusinessFactory
 {
-    /**
-     * @return \Spryker\Zed\WarehouseAllocation\Business\Expander\WarehouseExpanderInterface
-     */
     public function createWarehouseExpander(): WarehouseExpanderInterface
     {
         return new WarehouseExpander($this->getRepository());
     }
 
-    /**
-     * @return \Spryker\Zed\WarehouseAllocation\Business\Mapper\WarehouseAllocationOrderMapperInterface
-     */
     public function createWarehouseAllocationOrderMapper(): WarehouseAllocationOrderMapperInterface
     {
         return new WarehouseAllocationOrderMapper();
     }
 
-    /**
-     * @return \Spryker\Zed\WarehouseAllocation\Business\Allocator\WarehouseAllocatorInterface
-     */
     public function createWarehouseAllocator(): WarehouseAllocatorInterface
     {
         return new WarehouseAllocator(

@@ -38,9 +38,6 @@ class WarehouseAllocationCommunicationTester extends Actor
 {
     use _generated\WarehouseAllocationCommunicationTesterActions;
 
-    /**
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrder
-     */
     public function haveOrderWithOneItem(): SpySalesOrder
     {
         return $this->haveSalesOrderEntity([
@@ -48,11 +45,6 @@ class WarehouseAllocationCommunicationTester extends Actor
         ]);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\StockTransfer|null $stockTransfer
-     *
-     * @return \Spryker\Zed\WarehouseAllocationExtension\Dependency\Plugin\SalesOrderWarehouseAllocationPluginInterface
-     */
     public function createSalesOrderWarehouseAllocationPluginMock(
         ?StockTransfer $stockTransfer = null
     ): SalesOrderWarehouseAllocationPluginInterface {
@@ -69,12 +61,6 @@ class WarehouseAllocationCommunicationTester extends Actor
         );
     }
 
-    /**
-     * @param string $salesOrderItemUuid
-     * @param int|null $idWarehouse
-     *
-     * @return \Orm\Zed\WarehouseAllocation\Persistence\SpyWarehouseAllocation|null
-     */
     public function findWarehouseAssignment(string $salesOrderItemUuid, ?int $idWarehouse = null): ?SpyWarehouseAllocation
     {
         $spyWarehouseAllocationQuery = $this->getWarehouseAllocationQuery()

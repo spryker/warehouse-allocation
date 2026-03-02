@@ -12,12 +12,6 @@ use Generated\Shared\Transfer\WarehouseAllocationCollectionTransfer;
 
 interface WarehouseAllocationOrderMapperInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param \Generated\Shared\Transfer\WarehouseAllocationCollectionTransfer $warehouseAllocationCollectionTransfer
-     *
-     * @return \Generated\Shared\Transfer\WarehouseAllocationCollectionTransfer
-     */
     public function mapOrderTransferToWarehouseAllocationCollectionTransfer(
         OrderTransfer $orderTransfer,
         WarehouseAllocationCollectionTransfer $warehouseAllocationCollectionTransfer

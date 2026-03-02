@@ -20,11 +20,6 @@ class WarehouseAllocationDependencyProvider extends AbstractBundleDependencyProv
      */
     public const PLUGINS_SALES_ORDER_WAREHOUSE_ALLOCATION = 'PLUGINS_SALES_ORDER_WAREHOUSE_ALLOCATION';
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     public function provideBusinessLayerDependencies(Container $container): Container
     {
         $container = parent::provideBusinessLayerDependencies($container);
@@ -33,11 +28,6 @@ class WarehouseAllocationDependencyProvider extends AbstractBundleDependencyProv
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addSalesOrderWarehouseAllocationPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_SALES_ORDER_WAREHOUSE_ALLOCATION, function () {

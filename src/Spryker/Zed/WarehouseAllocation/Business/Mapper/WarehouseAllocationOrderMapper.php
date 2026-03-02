@@ -14,12 +14,6 @@ use Generated\Shared\Transfer\WarehouseAllocationTransfer;
 
 class WarehouseAllocationOrderMapper implements WarehouseAllocationOrderMapperInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-     * @param \Generated\Shared\Transfer\WarehouseAllocationCollectionTransfer $warehouseAllocationCollectionTransfer
-     *
-     * @return \Generated\Shared\Transfer\WarehouseAllocationCollectionTransfer
-     */
     public function mapOrderTransferToWarehouseAllocationCollectionTransfer(
         OrderTransfer $orderTransfer,
         WarehouseAllocationCollectionTransfer $warehouseAllocationCollectionTransfer
@@ -39,11 +33,6 @@ class WarehouseAllocationOrderMapper implements WarehouseAllocationOrderMapperIn
         return $warehouseAllocationCollectionTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
-     *
-     * @return bool
-     */
     protected function isWarehouseDefined(ItemTransfer $itemTransfer): bool
     {
         return $itemTransfer->getWarehouse() && $itemTransfer->getWarehouseOrFail()->getIdStock();

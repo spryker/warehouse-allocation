@@ -41,9 +41,6 @@ class WarehouseAllocationFacadeTest extends Unit
      */
     protected const TEST_ORDER_ITEM_UUID = 'TEST_ORDER_ITEM_UUID';
 
-    /**
-     * @return void
-     */
     public function testAllocateWarehousesWillNotPersistWarehouseAllocationIfOrderItemsDoNotHaveWarehouseSpecified(): void
     {
         // Arrange
@@ -59,9 +56,6 @@ class WarehouseAllocationFacadeTest extends Unit
         $this->assertCount(0, $this->tester->getWarehouseAllocations());
     }
 
-    /**
-     * @return void
-     */
     public function testAllocateWarehousesWillPersistWarehouseAllocationOnlyForOrderItemsWithSpecifiedWarehouse(): void
     {
         // Arrange
@@ -89,9 +83,6 @@ class WarehouseAllocationFacadeTest extends Unit
         $this->assertSame(static::TEST_ORDER_ITEM_UUID, $warehouseAllocationEntity->getSalesOrderItemUuid());
     }
 
-    /**
-     * @return void
-     */
     public function testExpandOrderItemsWithWarehousesReturnsExpandedOrderItems(): void
     {
         // Arrange
@@ -111,9 +102,6 @@ class WarehouseAllocationFacadeTest extends Unit
         $this->assertSame(static::TEST_ORDER_ITEM_UUID, $itemTransfers[0]->getUuid());
     }
 
-    /**
-     * @return void
-     */
     public function testExpandOrderItemsWithWarehousesReturnsTheSameItemTransfersIfThereIsNoWarehouseAllocationFound(): void
     {
         // Arrange

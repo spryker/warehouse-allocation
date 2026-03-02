@@ -11,11 +11,6 @@ use Generated\Shared\Transfer\WarehouseAllocationTransfer;
 
 interface WarehouseAllocationEntityManagerInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\WarehouseAllocationTransfer $warehouseAllocationTransfer
-     *
-     * @return \Generated\Shared\Transfer\WarehouseAllocationTransfer
-     */
     public function createWarehouseAllocation(
         WarehouseAllocationTransfer $warehouseAllocationTransfer
     ): WarehouseAllocationTransfer;

@@ -54,12 +54,6 @@ class WarehouseAllocationRepository extends AbstractRepository implements Wareho
             );
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\WarehouseAllocationConditionsTransfer $warehouseAllocationConditionsTransfer
-     * @param \Orm\Zed\WarehouseAllocation\Persistence\SpyWarehouseAllocationQuery $warehouseAllocationQuery
-     *
-     * @return \Orm\Zed\WarehouseAllocation\Persistence\SpyWarehouseAllocationQuery
-     */
     protected function applyFilters(
         WarehouseAllocationConditionsTransfer $warehouseAllocationConditionsTransfer,
         SpyWarehouseAllocationQuery $warehouseAllocationQuery

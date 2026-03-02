@@ -19,9 +19,6 @@ use Spryker\Zed\WarehouseAllocation\Communication\Mapper\OrderMapperInterface;
  */
 class WarehouseAllocationCommunicationFactory extends AbstractCommunicationFactory
 {
-    /**
-     * @return \Spryker\Zed\WarehouseAllocation\Communication\Mapper\OrderMapperInterface
-     */
     public function createOrderMapper(): OrderMapperInterface
     {
         return new OrderMapper();

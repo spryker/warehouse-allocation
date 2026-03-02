@@ -12,11 +12,6 @@ use Generated\Shared\Transfer\WarehouseAllocationCriteriaTransfer;
 
 interface WarehouseAllocationRepositoryInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\WarehouseAllocationCriteriaTransfer $warehouseAllocationCriteriaTransfer
-     *
-     * @return \Generated\Shared\Transfer\WarehouseAllocationCollectionTransfer
-     */
     public function getWarehouseAllocationCollection(
         WarehouseAllocationCriteriaTransfer $warehouseAllocationCriteriaTransfer
     ): WarehouseAllocationCollectionTransfer;

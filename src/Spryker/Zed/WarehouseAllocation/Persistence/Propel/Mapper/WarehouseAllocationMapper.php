@@ -15,12 +15,6 @@ use Propel\Runtime\Collection\Collection;
 
 class WarehouseAllocationMapper
 {
-    /**
-     * @param \Generated\Shared\Transfer\WarehouseAllocationTransfer $warehouseAllocationTransfer
-     * @param \Orm\Zed\WarehouseAllocation\Persistence\SpyWarehouseAllocation $warehouseAllocationEntity
-     *
-     * @return \Orm\Zed\WarehouseAllocation\Persistence\SpyWarehouseAllocation
-     */
     public function mapWarehouseAllocationTransferToWarehouseAllocationEntity(
         WarehouseAllocationTransfer $warehouseAllocationTransfer,
         SpyWarehouseAllocation $warehouseAllocationEntity
@@ -52,12 +46,6 @@ class WarehouseAllocationMapper
         return $warehouseAllocationCollectionTransfer;
     }
 
-    /**
-     * @param \Orm\Zed\WarehouseAllocation\Persistence\SpyWarehouseAllocation $warehouseAllocationEntity
-     * @param \Generated\Shared\Transfer\WarehouseAllocationTransfer $warehouseAllocationTransfer
-     *
-     * @return \Generated\Shared\Transfer\WarehouseAllocationTransfer
-     */
     public function mapWarehouseAllocationEntityToWarehouseAllocationTransfer(
         SpyWarehouseAllocation $warehouseAllocationEntity,
         WarehouseAllocationTransfer $warehouseAllocationTransfer
