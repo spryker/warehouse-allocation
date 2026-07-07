@@ -7,9 +7,14 @@
 
 namespace Spryker\Zed\WarehouseAllocation\Persistence;
 
+use Generated\Shared\Transfer\QueryCriteriaTransfer;
+use Generated\Shared\Transfer\ReservationRequestTransfer;
 use Generated\Shared\Transfer\WarehouseAllocationCollectionTransfer;
 use Generated\Shared\Transfer\WarehouseAllocationConditionsTransfer;
 use Generated\Shared\Transfer\WarehouseAllocationCriteriaTransfer;
+use Generated\Shared\Transfer\WhereClauseTransfer;
+use Orm\Zed\Sales\Persistence\Map\SpySalesOrderItemTableMap;
+use Orm\Zed\WarehouseAllocation\Persistence\Map\SpyWarehouseAllocationTableMap;
 use Orm\Zed\WarehouseAllocation\Persistence\SpyWarehouseAllocationQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
@@ -19,11 +24,7 @@ use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 class WarehouseAllocationRepository extends AbstractRepository implements WarehouseAllocationRepositoryInterface
 {
     /**
-     * @uses Stock
-     *
-     * @param \Generated\Shared\Transfer\WarehouseAllocationCriteriaTransfer $warehouseAllocationCriteriaTransfer
-     *
-     * @return \Generated\Shared\Transfer\WarehouseAllocationCollectionTransfer
+     * @module Stock
      */
     public function getWarehouseAllocationCollection(
         WarehouseAllocationCriteriaTransfer $warehouseAllocationCriteriaTransfer
@@ -46,12 +47,82 @@ class WarehouseAllocationRepository extends AbstractRepository implements Wareho
             return $warehouseAllocationCollectionTransfer;
         }
 
-        return $this->getFactory()
+        $warehouseAllocationCollectionTransfer = $this->getFactory()
             ->createWarehouseAllocationMapper()
             ->mapWarehouseAllocationEntitiesToWarehouseAllocationCollectionTransfer(
                 $warehouseAllocationEntities,
                 $warehouseAllocationCollectionTransfer,
             );
+
+        if ($warehouseAllocationCriteriaTransfer->getWithStoreRelation()) {
+            $warehouseAllocationCollectionTransfer = $this->expandWarehouseAllocationsWithStoreRelation(
+                $warehouseAllocationCollectionTransfer,
+            );
+        }
+
+        return $warehouseAllocationCollectionTransfer;
+    }
+
+    /**
+     * @module Sales
+     */
+    public function expandOmsReservationAggregationQueryCriteria(
+        QueryCriteriaTransfer $queryCriteriaTransfer,
+        ReservationRequestTransfer $reservationRequestTransfer // phpcs:ignore SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
+    ): QueryCriteriaTransfer {
+        $whereClauseTransfer = (new WhereClauseTransfer())
+            ->setClause(sprintf(
+                '%s IN (SELECT %s FROM %s)',
+                SpySalesOrderItemTableMap::COL_UUID,
+                SpyWarehouseAllocationTableMap::COL_SALES_ORDER_ITEM_UUID,
+                SpyWarehouseAllocationTableMap::TABLE_NAME,
+            ));
+
+        $queryCriteriaTransfer->addWhereClause($whereClauseTransfer);
+
+        return $queryCriteriaTransfer;
+    }
+
+    /**
+     * @module Stock
+     */
+    protected function expandWarehouseAllocationsWithStoreRelation(
+        WarehouseAllocationCollectionTransfer $warehouseAllocationCollectionTransfer
+    ): WarehouseAllocationCollectionTransfer {
+        $stockIds = [];
+        foreach ($warehouseAllocationCollectionTransfer->getWarehouseAllocations() as $warehouseAllocationTransfer) {
+            $idStock = $warehouseAllocationTransfer->getWarehouse()?->getIdStock();
+            if ($idStock !== null) {
+                $stockIds[$idStock] = $idStock;
+            }
+        }
+
+        if ($stockIds === []) {
+            return $warehouseAllocationCollectionTransfer;
+        }
+
+        $stockStoreEntities = $this->getFactory()
+            ->createStockStorePropelQuery()
+            ->filterByFkStock_In($stockIds)
+            ->joinWithStore()
+            ->find();
+
+        $storeRelationTransfersIndexedByIdStock = $this->getFactory()
+            ->createWarehouseAllocationMapper()
+            ->mapStockStoreEntitiesToStoreRelationTransfersIndexedByIdStock($stockStoreEntities);
+
+        foreach ($warehouseAllocationCollectionTransfer->getWarehouseAllocations() as $warehouseAllocationTransfer) {
+            $idStock = $warehouseAllocationTransfer->getWarehouse()?->getIdStock();
+            if ($idStock === null || !isset($storeRelationTransfersIndexedByIdStock[$idStock])) {
+                continue;
+            }
+
+            $warehouseAllocationTransfer->getWarehouseOrFail()->setStoreRelation(
+                $storeRelationTransfersIndexedByIdStock[$idStock],
+            );
+        }
+
+        return $warehouseAllocationCollectionTransfer;
     }
 
     protected function applyFilters(

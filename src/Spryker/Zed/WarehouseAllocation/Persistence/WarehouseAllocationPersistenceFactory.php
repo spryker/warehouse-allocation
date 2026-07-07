@@ -7,6 +7,7 @@
 
 namespace Spryker\Zed\WarehouseAllocation\Persistence;
 
+use Orm\Zed\Stock\Persistence\SpyStockStoreQuery;
 use Orm\Zed\WarehouseAllocation\Persistence\SpyWarehouseAllocationQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 use Spryker\Zed\WarehouseAllocation\Persistence\Propel\Mapper\WarehouseAllocationMapper;
@@ -29,5 +30,15 @@ class WarehouseAllocationPersistenceFactory extends AbstractPersistenceFactory
     public function createWarehouseAllocationMapper(): WarehouseAllocationMapper
     {
         return new WarehouseAllocationMapper();
+    }
+
+    /**
+     * @module Stock
+     *
+     * @return \Orm\Zed\Stock\Persistence\SpyStockStoreQuery<\Orm\Zed\Stock\Persistence\SpyStockStore>
+     */
+    public function createStockStorePropelQuery(): SpyStockStoreQuery
+    {
+        return SpyStockStoreQuery::create();
     }
 }

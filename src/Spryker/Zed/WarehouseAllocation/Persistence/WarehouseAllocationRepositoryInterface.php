@@ -7,6 +7,8 @@
 
 namespace Spryker\Zed\WarehouseAllocation\Persistence;
 
+use Generated\Shared\Transfer\QueryCriteriaTransfer;
+use Generated\Shared\Transfer\ReservationRequestTransfer;
 use Generated\Shared\Transfer\WarehouseAllocationCollectionTransfer;
 use Generated\Shared\Transfer\WarehouseAllocationCriteriaTransfer;
 
@@ -15,4 +17,9 @@ interface WarehouseAllocationRepositoryInterface
     public function getWarehouseAllocationCollection(
         WarehouseAllocationCriteriaTransfer $warehouseAllocationCriteriaTransfer
     ): WarehouseAllocationCollectionTransfer;
+
+    public function expandOmsReservationAggregationQueryCriteria(
+        QueryCriteriaTransfer $queryCriteriaTransfer,
+        ReservationRequestTransfer $reservationRequestTransfer
+    ): QueryCriteriaTransfer;
 }

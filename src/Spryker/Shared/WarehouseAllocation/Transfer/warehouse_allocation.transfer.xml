@@ -12,6 +12,7 @@
 
     <transfer name="Stock">
         <property name="idStock" type="int"/>
+        <property name="storeRelation" type="StoreRelation"/>
     </transfer>
 
     <transfer name="WarehouseAllocation" strict="true">
@@ -21,6 +22,7 @@
 
     <transfer name="WarehouseAllocationCriteria" strict="true">
         <property name="warehouseAllocationConditions" type="WarehouseAllocationConditions"/>
+        <property name="withStoreRelation" type="bool"/>
     </transfer>
 
     <transfer name="WarehouseAllocationConditions" strict="true">
@@ -30,6 +32,23 @@
 
     <transfer name="WarehouseAllocationCollection" strict="true">
         <property name="warehouseAllocations" type="WarehouseAllocation[]" singular="warehouseAllocation"/>
+    </transfer>
+
+    <transfer name="ReservationRequest">
+        <property name="uuid" type="string"/>
+    </transfer>
+
+    <transfer name="StoreRelation">
+        <property name="stores" type="Store[]" singular="stores"/>
+    </transfer>
+
+    <transfer name="Store">
+    </transfer>
+
+    <transfer name="QueryCriteria">
+    </transfer>
+
+    <transfer name="WhereClause" strict="true">
     </transfer>
 
 </transfers>

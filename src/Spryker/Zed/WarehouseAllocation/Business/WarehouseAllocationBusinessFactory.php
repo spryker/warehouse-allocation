@@ -10,6 +10,8 @@ namespace Spryker\Zed\WarehouseAllocation\Business;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 use Spryker\Zed\WarehouseAllocation\Business\Allocator\WarehouseAllocator;
 use Spryker\Zed\WarehouseAllocation\Business\Allocator\WarehouseAllocatorInterface;
+use Spryker\Zed\WarehouseAllocation\Business\Expander\ReservationRequestExpander;
+use Spryker\Zed\WarehouseAllocation\Business\Expander\ReservationRequestExpanderInterface;
 use Spryker\Zed\WarehouseAllocation\Business\Expander\WarehouseExpander;
 use Spryker\Zed\WarehouseAllocation\Business\Expander\WarehouseExpanderInterface;
 use Spryker\Zed\WarehouseAllocation\Business\Mapper\WarehouseAllocationOrderMapper;
@@ -26,6 +28,11 @@ class WarehouseAllocationBusinessFactory extends AbstractBusinessFactory
     public function createWarehouseExpander(): WarehouseExpanderInterface
     {
         return new WarehouseExpander($this->getRepository());
+    }
+
+    public function createReservationRequestExpander(): ReservationRequestExpanderInterface
+    {
+        return new ReservationRequestExpander($this->getRepository());
     }
 
     public function createWarehouseAllocationOrderMapper(): WarehouseAllocationOrderMapperInterface

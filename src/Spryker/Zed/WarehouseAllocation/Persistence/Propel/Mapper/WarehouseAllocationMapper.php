@@ -8,8 +8,11 @@
 namespace Spryker\Zed\WarehouseAllocation\Persistence\Propel\Mapper;
 
 use Generated\Shared\Transfer\StockTransfer;
+use Generated\Shared\Transfer\StoreRelationTransfer;
+use Generated\Shared\Transfer\StoreTransfer;
 use Generated\Shared\Transfer\WarehouseAllocationCollectionTransfer;
 use Generated\Shared\Transfer\WarehouseAllocationTransfer;
+use Orm\Zed\Stock\Persistence\SpyStock;
 use Orm\Zed\WarehouseAllocation\Persistence\SpyWarehouseAllocation;
 use Propel\Runtime\Collection\Collection;
 
@@ -53,7 +56,34 @@ class WarehouseAllocationMapper
          return $warehouseAllocationTransfer
              ->fromArray($warehouseAllocationEntity->toArray(), true)
              ->setWarehouse(
-                 (new StockTransfer())->fromArray($warehouseAllocationEntity->getWarehouse()->toArray(), true),
+                 $this->mapStockEntityToStockTransfer($warehouseAllocationEntity->getWarehouse(), new StockTransfer()),
              );
+    }
+
+    protected function mapStockEntityToStockTransfer(SpyStock $stockEntity, StockTransfer $stockTransfer): StockTransfer
+    {
+        return $stockTransfer->fromArray($stockEntity->toArray());
+    }
+
+    /**
+     * @param \Propel\Runtime\Collection\Collection<array-key, \Orm\Zed\Stock\Persistence\SpyStockStore> $stockStoreEntities
+     *
+     * @return array<int, \Generated\Shared\Transfer\StoreRelationTransfer>
+     */
+    public function mapStockStoreEntitiesToStoreRelationTransfersIndexedByIdStock(Collection $stockStoreEntities): array
+    {
+        $storeRelationTransfersIndexedByIdStock = [];
+        foreach ($stockStoreEntities as $stockStoreEntity) {
+            $idStock = $stockStoreEntity->getFkStock();
+            if (!isset($storeRelationTransfersIndexedByIdStock[$idStock])) {
+                $storeRelationTransfersIndexedByIdStock[$idStock] = (new StoreRelationTransfer())->setIdEntity($idStock);
+            }
+
+            $storeRelationTransfersIndexedByIdStock[$idStock]->addStores(
+                (new StoreTransfer())->fromArray($stockStoreEntity->getStore()->toArray(), true),
+            );
+        }
+
+        return $storeRelationTransfersIndexedByIdStock;
     }
 }
