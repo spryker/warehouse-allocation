@@ -36,19 +36,25 @@
 
     <transfer name="ReservationRequest">
         <property name="uuid" type="string"/>
+        <property name="store" type="Store"/>
+        <property name="stores" type="Store[]" singular="store"/>
     </transfer>
 
     <transfer name="StoreRelation">
         <property name="stores" type="Store[]" singular="stores"/>
+        <property name="idEntity" type="int"/>
     </transfer>
 
     <transfer name="Store">
+        <property name="name" type="string"/>
     </transfer>
 
     <transfer name="QueryCriteria">
+        <property name="whereClauses" type="WhereClause[]" singular="whereClause"/>
     </transfer>
 
     <transfer name="WhereClause" strict="true">
+        <property name="clause" type="string"/>
     </transfer>
 
 </transfers>
