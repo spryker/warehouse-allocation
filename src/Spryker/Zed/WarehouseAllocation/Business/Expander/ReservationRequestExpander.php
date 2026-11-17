@@ -42,7 +42,7 @@ class ReservationRequestExpander implements ReservationRequestExpanderInterface
                 continue;
             }
 
-            $existingStoreNames = $this->addUniqueStores(
+            $this->addUniqueStores(
                 $reservationRequestTransfer,
                 $storeRelationTransfer,
                 $existingStoreTransfers,
